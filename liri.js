@@ -51,16 +51,21 @@ function concert() {
     
 }
 function findConcert(artist) {
-
     axios.get("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp").then(
         function (apiResponse) {
             var concert = apiResponse.data[0];
             var concertDate = moment(concert.datetime, "YYYY-MM-DDTHH:mm:ss");
 
-            console.log("\n-------------\n");
-            console.log("Artist: " + artist + "\nName: " + concert.venue.name + "\nVenue Location: " + concert.venue.city + ", " +
-                concert.venue.region + "\nDate: " + concertDate.format("MM/DD/YYYY"));
-            console.log("\n-------------\n");
+            var output = "\n-------------\nArtist: " + artist + "\nName: " + concert.venue.name +       
+                "\nVenue Location: " + concert.venue.city + ", " + concert.venue.region + "\nDate: " 
+                + concertDate.format("MM/DD/YYYY") + "\n-------------\n";
+
+            console.log(output);
+            writeToFile(output);
+            // console.log("\n-------------\n");
+            // console.log("Artist: " + artist + "\nName: " + concert.venue.name + "\nVenue Location: " + concert.venue.city + ", " +
+            //     concert.venue.region + "\nDate: " + concertDate.format("MM/DD/YYYY"));
+            // console.log("\n-------------\n");
 
         }
     ).catch(function (error) {
@@ -158,10 +163,11 @@ function runSong(song) {
         .then(function (response) {
             //console.log(response.tracks.items[0]);
             var songInfo = response.tracks.items[0];
+            //console.log(songInfo);
 
             console.log("\n-------------\n");
             console.log("Artist: " + songInfo.artists[0].name + "\nSong Name: " + songInfo.name + "\nLink to song: " +
-                songInfo.preview_url + "\nAlbum: " + songInfo.album.name);
+                songInfo.href + "\nAlbum: " + songInfo.album.name);
             console.log("\n-------------\n");
 
         })
@@ -175,19 +181,25 @@ function randomAction() {
         if (err) {
             return console.log(error);
         }
-        var action = data.split(",")[0];
-        var input = data.split(",")[1];
-        switch (action) {
-            case "concert-this":
-                findConcert(input);
-                break;
-            case "spotify-this-song":
-                runSong(input);
-                break;
-            case "movie-this":
-                findMovie(input);
-                break;
+        dataArr = data.split(",");
+        for(var i = 0; i<dataArr.length/2; i++){
+            var action = dataArr[2*i];
+            var input = dataArr[2*i+1].replace('"','');
+
+            switch (action) {
+                case "concert-this":
+                    console.log(input);
+                    findConcert(input);
+                    break;
+                case "spotify-this-song":
+                    runSong(input);
+                    break;
+                case "movie-this":
+                    findMovie(input);
+                    break;
+            }
         }
+
     })
 }
 
@@ -198,4 +210,11 @@ function findObjectByValue(array, key, value) {
         }
     }
     return null;
+}
+function writeToFile(text){
+    fs.appendFile("log.txt", text, function(err){
+        if (err) {
+            console.log(err);
+          }
+    })
 }
