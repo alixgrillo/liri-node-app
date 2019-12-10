@@ -13,37 +13,37 @@ The LIRI Bot helps you find information on your favorite songs, movies, and conc
 
 
 ## About
-The animal GIF page allows the user to see 10 randoms GIFs (hard-G) of their favorite animals. The search
-is based on the text on the buttons. When the page loads, there will be 8 buttons to start, and the user can 
-click any of the button to render the GIFs. Note - if you want to see more GIFs, hit the same animal more
-than once! Each time you chose an animal, 10 more GIFs will produce than the last time.
+This command-line only application will prompt the user to one of three API's based on whether they want to find a movie,
+a song, or a concert. Based on the inputs, the API will grab the first result and give the user a brief summary of information
+on that request. Look up previous results in a `log.txt` file that will create after the user's first query.
 
 <img src="/assets/images/giphy-game.gif">
 
 ## Functionality
-Once the GIFs load, they will all be still images. To animate the images, click on any of images, and they 
-will animate. By click on the image again, it will return to the still state. Go ahead and animate all of the
-images at once!
+* Lookup a movie
 
-<img src="/assets/images/giphy-pics.gif">
+* Lookup a movie with the default input
 
-Add a new word by using the form and clicking the Add! button. A new button will appears and it will pull in 
-GIFs for the new search term.
+* Lookup a concert
 
-<img src="/assets/images/giphy-newWord.gif">
+* Lookup a concert with the default input
 
-If you don't like any of the search terms, you can delete a button by hovering over the button and clicking
-the black X close button that generates. Take note that the parent button with the search term will not 
-activate the GIFs when the close button is clicked. 
+* Lookup a song
 
-<img src="/assets/images/giphy-deleteWord.gif">
+* Lookup a song with the default input
+
+* Run the random task
+
+* View the `log.txt` file
 
 ## Technical Features
-* Buttons are dynamically created using an array of items and generating the button through JQuery.
-* JQuery `$.ajax` function is used to call the GIPHY API to generate the specified number of GIFs.
-* HTML element `data` attribute utilized to store animated and still URLs for GIF to allow GIF to switch based
-on a click.
-* Leveraged `.slice()` function to allow the user to delete a button.
+* This is a command-line only application.
+* The `inquirer` package prompts the user to decide what action to take - the options are to Lookup a Concert, a Song, a
+Movie, or a random action. The random action will read the `random.txt` to determine its actions.
+* The function to lookup a concert will access the Bands-in-Town API (http://www.artists.bandsintown.com/bandsintown-apiv).
+* The function to lookup a movie will access the OMDB API (http://www.omdbapi.com).
+* The function to lookup a song will access the Spotify API (https://developer.spotify.com).
+* Each time the program runs, the results will be appended to the `log.txt` file. 
 
 ## Requirements
 In order to run, you will need to clone or fork this repository to your local machine. You will need to run:
@@ -72,11 +72,11 @@ SPOTIFY_SECRET=your-spotify-secret
 ## Build Tools
 * Node.js v10.16.3
 * Node packages:
-* [axios] v0.19.0 (https://www.npmjs.com/package/axios)
-* [dotenv] v8.2.0 (https://www.npmjs.com/package/dotenv)
-* [inquirer] v.7.0.0 (https://npmjs.com/package/inquirer)
-* [moment] v2.24.0 (https://www.npmjs.com/package/moment)
-* [node-spotify-api] v1.1.1 (https://www.npmjs.com/package/node-spotify-api)
+  * axios v0.19.0 (https://www.npmjs.com/package/axios)
+  * dotenv v8.2.0 (https://www.npmjs.com/package/dotenv)
+  * inquirer v.7.0.0 (https://npmjs.com/package/inquirer)
+  * moment v2.24.0 (https://www.npmjs.com/package/moment)
+  * node-spotify-api v1.1.1 (https://www.npmjs.com/package/node-spotify-api)
 
 
 ## Acknowledgements
