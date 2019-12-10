@@ -58,7 +58,7 @@ function findConcert(artist) {
 
             var output = "\n-------------\nArtist: " + artist + "\nName: " + concert.venue.name +       
                 "\nVenue Location: " + concert.venue.city + ", " + concert.venue.region + "\nDate: " 
-                + concertDate.format("MM/DD/YYYY") + "\n-------------\n";
+                + concertDate.format("MM/DD/YYYY");
 
             console.log(output);
             writeToFile(output);
@@ -112,11 +112,12 @@ function findMovie(movie) {
 
             var rottonTomatoes = findObjectByValue(movie.Ratings, "Source", "Rotten Tomatoes").Value;
 
-            console.log("\n-------------\n");
-            console.log("Title: " + movie.Title + "\nYear: " + movie.Year + "\nIMDB Rating: " + movie.imdbRating +
-                "\nRotten Tomatoes Rating: " + rottonTomatoes + "\nCountry: " + movie.Country + "\nLanguage: " +
-                movie.Language + "\nPlot: " + movie.Plot + "\nActors: " + movie.Actors);
-            console.log("\n-------------\n");
+            var output = "\n-------------\nTitle: " + movie.Title + "\nYear: " + movie.Year + "\nIMDB Rating: " + movie.imdbRating +
+            "\nRotten Tomatoes Rating: " + rottonTomatoes + "\nCountry: " + movie.Country + "\nLanguage: " +
+            movie.Language + "\nPlot: " + movie.Plot + "\nActors: " + movie.Actors;
+
+            console.log(output);
+            writeToFile(output);
         }
     ).catch(function (error) {
         if (error.response) {
@@ -161,14 +162,13 @@ function runSong(song) {
     spotify
         .search({ type: 'track', query: song, limit: 1 })
         .then(function (response) {
-            //console.log(response.tracks.items[0]);
             var songInfo = response.tracks.items[0];
-            //console.log(songInfo);
 
-            console.log("\n-------------\n");
-            console.log("Artist: " + songInfo.artists[0].name + "\nSong Name: " + songInfo.name + "\nLink to song: " +
-                songInfo.href + "\nAlbum: " + songInfo.album.name);
-            console.log("\n-------------\n");
+            var output = "\n-------------\nArtist: " + songInfo.artists[0].name + "\nSong Name: " +
+                songInfo.name + "\nLink to song: " + songInfo.href + "\nAlbum: " + songInfo.album.name;
+            
+            console.log(output);
+            writeToFile(output);
 
         })
         .catch(function (err) {
@@ -184,11 +184,10 @@ function randomAction() {
         dataArr = data.split(",");
         for(var i = 0; i<dataArr.length/2; i++){
             var action = dataArr[2*i];
-            var input = dataArr[2*i+1].replace('"','');
+            var input = dataArr[2*i+1].replace(/"/gi,'');
 
             switch (action) {
                 case "concert-this":
-                    console.log(input);
                     findConcert(input);
                     break;
                 case "spotify-this-song":
