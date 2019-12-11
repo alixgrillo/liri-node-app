@@ -17,24 +17,33 @@ This command-line only application will prompt the user to one of three API's ba
 a song, or a concert. Based on the inputs, the API will grab the first result and give the user a brief summary of information
 on that request. Look up previous results in a `log.txt` file that will create after the user's first query.
 
-<img src="/assets/images/giphy-game.gif">
-
 ## Functionality
+Start the program by running `node liri.js` in the command line in the directory of the file. The following screenshots show
+the results of each function.
+
 * Lookup a movie
+<img src="/images/movie-input.gif">
 
 * Lookup a movie with the default input
+<img src="/images/movie-no-input.gif">
 
 * Lookup a concert
+<img src="/images/concert-input.gif">
 
 * Lookup a concert with the default input
+<img src="/images/concert-no-input.gif">
 
 * Lookup a song
+<img src="/images/song-input.gif">
 
 * Lookup a song with the default input
+<img src="/images/song-no-input.gif">
 
 * Run the random task
+<img src="/images/random.gif">
 
 * View the `log.txt` file
+<img src="/images/log.gif">
 
 ## Technical Features
 * This is a command-line only application.
