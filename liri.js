@@ -151,7 +151,7 @@ function spotify() {
     ]).then(function (response) {
         var song = response.song;
         if (song === "") {
-            song = "The Sign";
+            song = "The Sign Ace of Base";
         }
         runSong(song);
     })
